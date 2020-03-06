@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <AnchorPane prefHeight="499.0" prefWidth="783.0">
+         <children>
+            <TableView layoutX="39.0" layoutY="90.0" prefHeight="337.0" prefWidth="499.0">
+              <columns>
+                <TableColumn prefWidth="53.333340644836426" text="Card ID" />
+                  <TableColumn prefWidth="156.00003814697266" text="Card holder:" />
+                <TableColumn prefWidth="102.66661071777344" text="Access level" />
+                  <TableColumn minWidth="5.3333740234375" prefWidth="90.6666259765625" text="Special Access" />
+                  <TableColumn prefWidth="93.99998982747394" text="Institution" />
+              </columns>
+            </TableView>
+            <Button layoutX="590.0" layoutY="353.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Card" />
+            <Button layoutX="39.0" layoutY="441.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Card" textFill="RED" />
+            <Button layoutX="589.0" layoutY="392.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="New Card" />
+            <TextField layoutX="590.0" layoutY="204.0" prefHeight="25.0" prefWidth="149.0" promptText="Firstname Lastname" />
+            <TextArea layoutX="590.0" layoutY="243.0" prefHeight="87.0" prefWidth="149.0" promptText="Notes" />
+            <DatePicker layoutX="590.0" layoutY="169.0" prefHeight="25.0" prefWidth="150.0" />
+            <TextField alignment="CENTER" disable="true" layoutX="591.0" layoutY="120.0" promptText="Card ID" />
+            <Label layoutX="625.0" layoutY="152.0" text="Access Expires:" />
+            <Button layoutX="590.0" layoutY="441.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Access levels" />
+            <Button layoutX="589.0" layoutY="22.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="149.0" text="Log-out" textFill="#ff0000e5" />
+            <Label layoutX="364.0" layoutY="22.0" text="Main door status:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <RadioButton layoutX="395.0" layoutY="49.0" mnemonicParsing="false" text="Unlocked" textFill="#0f1a06">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </RadioButton>
+            <ImageView fitHeight="210.0" fitWidth="204.0" layoutX="39.0" layoutY="-61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
