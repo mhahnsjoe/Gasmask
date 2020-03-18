@@ -1,23 +1,52 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Key {
 	
 	private String accessLevel;
-	private String owner;
-	private Date validTo;
+	private String institution;
+	private String holder;
+	private LocalDate validTo;
 	private String keyID;
 	private Employee employee;
 	private String employeeID = employee.getpNbr();
 	private ArrayList<Lock> specAccess = new ArrayList<Lock>();
+	private ArrayList<ArrayList<Lock>> AccessLevels = new ArrayList<ArrayList<Lock>>();
+
 	private String specialAccess=(specAccess.size()+" Rooms");
+	
 
 	
+	// Constructor
+	
+	public Key(String aLvl, String inst, String kID, Employee employee, LocalDate validTo, ArrayList<Lock> specAccess, ArrayList<ArrayList<Lock>> accessLevels) {
+		setAccessLevel(aLvl);
+		setInstitution(inst);
+		setKeyID(kID);
+		setEmployee(employee);
+		setValidTo(validTo);
+		setSpecAccess(specAccess);
+		setAccessLevels(accessLevels);
+		setHolder(employee.getName());
+	}
 	
 	
+
+
 	//Getters and setters---------------
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
+	public ArrayList<ArrayList<Lock>> getAccessLevels() {
+		return AccessLevels;
+	}
+	public void setAccessLevels(ArrayList<ArrayList<Lock>> accessLevels) {
+		AccessLevels = accessLevels;
+	}
 	public String getEmployeeID() {
 		return employeeID;
 	}
@@ -37,17 +66,23 @@ public class Key {
 		this.accessLevel = accessLevel;
 	}
 
-	public String getOwner() {
-		return owner;
+	public String getHolder() {
+		return holder;
 	}
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setOwner(String holder) {
+		this.holder = holder;
 	}
-	public Date getValidTo() {
+	public LocalDate getValidTo() {
 		return validTo;
 	}
-	public void setValidTo(Date validTo) {
+	public void setValidTo(LocalDate validTo) {
 		this.validTo = validTo;
+	}
+	public String getInstitution() {
+		return institution;
+	}
+	public void setInstitution(String institution) {
+		this.institution = institution;
 	}
 	public String getKeyID() {
 		return keyID;
@@ -62,19 +97,14 @@ public class Key {
 	public void setEmployee(Employee employees) {
 		this.employee = employees;
 	}
-	
-	public ArrayList<Lock> getLocksList() {
+
+	public ArrayList<Lock> getSpecAccess() {
 		return specAccess;
 	}
-	public void setLocksList(ArrayList<Lock> specAccess) {
+    public void setSpecAccess(ArrayList<Lock> specAccess) {
 		this.specAccess = specAccess;
 	}
-	public KeyRegister getKeyRegister() {
-		return keyRegister;
-	}
-	public void setKeyRegister(KeyRegister keyRegister) {
-		this.keyRegister = keyRegister;
-	}
+
 	
 	
 	

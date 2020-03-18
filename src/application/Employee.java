@@ -9,6 +9,8 @@ public class Employee {
 	private Date endDate;
 	private Key keys;
 	private EmployeeRegister employeeRegister;
+	private String name;
+	
 	
 	//Getters and setters-----------
 	public String getpNbr() {
@@ -48,7 +50,12 @@ public class Employee {
 	public void setEmployeeRegister(EmployeeRegister employeeRegister) {
 		this.employeeRegister = employeeRegister;
 	}
-	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 
 }
