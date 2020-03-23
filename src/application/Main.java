@@ -17,20 +17,25 @@ public class Main extends Application {
 	
 	public void start(Stage primaryStage) {
 		
+	 try {
+		    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
+		    Parent root = (Parent) loader.load();
+		    MainViewController hController = loader.getController();
 
-		 try {
-			    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
-			    Parent root = (Parent) loader.load();
-			    Stage stage = new Stage();
-			    stage.setScene(new Scene(root));
-			    stage.show();
-			    
-			    }
-			    catch (IOException e) {
-			    	e.printStackTrace();
-			    }
+
+		    hController.setEmployeeReg(this.employeeReg);
+		    hController.setKeyReg(this.keyReg);
+
+		    Stage stage = new Stage();
+		    stage.setScene(new Scene(root));
+		    stage.setResizable(false);
+		    stage.show();
+		    
+		    }
+		    catch (IOException e) {
+		    	e.printStackTrace();
+		    }
 	}
-	
 	
 
 	public static void main(String[] args) {

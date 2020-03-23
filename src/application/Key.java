@@ -11,44 +11,51 @@ public class Key {
 	private String holder;
 	private LocalDate validTo;
 	private String keyID;
-	private Employee employee;
-	private String employeeID = employee.getpNbr();
+	private String employeeID;
+	private String comment;
+	
 	private ArrayList<Lock> specAccess = new ArrayList<Lock>();
-	private ArrayList<ArrayList<Lock>> AccessLevels = new ArrayList<ArrayList<Lock>>();
+	private ArrayList<AccessLevel> AccessLevels = new ArrayList<AccessLevel>();
 
 	private String specialAccess=(specAccess.size()+" Rooms");
 	
 
 	
-	// Constructor
+	// Constructor-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	public Key(String aLvl, String inst, String kID, Employee employee, LocalDate validTo, ArrayList<Lock> specAccess, ArrayList<ArrayList<Lock>> accessLevels) {
+	public Key(String aLvl, String inst, String kID, String employeeID, LocalDate validTo, ArrayList<Lock> specAccess, ArrayList<AccessLevel> accessLevels) {
 		setAccessLevel(aLvl);
 		setInstitution(inst);
 		setKeyID(kID);
-		setEmployee(employee);
+		setEmployeeID(employeeID);
 		setValidTo(validTo);
 		setSpecAccess(specAccess);
-		setAccessLevels(accessLevels);
-		setHolder(employee.getName());
+		setAccessLevels(AccessLevels);
 	}
 	
 	
 
 
-	//Getters and setters---------------
+	//Getters and setters-------------------------------------------------------------------------------------------------------------------------------------------------------------
+	public String getComment() {
+		return comment;
+	}
+
+
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public void setHolder(String holder) {
 		this.holder = holder;
 	}
 
-	public ArrayList<ArrayList<Lock>> getAccessLevels() {
+	public ArrayList<AccessLevel> getAccessLevels() {
 		return AccessLevels;
 	}
-	public void setAccessLevels(ArrayList<ArrayList<Lock>> accessLevels) {
+	public void setAccessLevels(ArrayList<AccessLevel> accessLevels) {
 		AccessLevels = accessLevels;
-	}
-	public String getEmployeeID() {
-		return employeeID;
 	}
 	public String getSpecialAccess() {
 		return specialAccess;
@@ -56,9 +63,7 @@ public class Key {
 	public void setSpecialAccess(String specialAccess) {
 		this.specialAccess = (specAccess.size()+" Rooms");
 	}
-	public void setEmployeeID(String employeeID) {
-		this.employeeID = employeeID;
-	}
+	
 	public String getAccessLevel() {
 		return accessLevel;
 	}
@@ -91,11 +96,11 @@ public class Key {
 		this.keyID = keyID;
 	}
 	
-	public Employee getEmployee() {
-		return employee;
+	public String getEmployeeID() {
+		return employeeID;
 	}
-	public void setEmployee(Employee employees) {
-		this.employee = employees;
+	public void setEmployeeID(String employeeID) {
+		this.employeeID = employeeID;
 	}
 
 	public ArrayList<Lock> getSpecAccess() {

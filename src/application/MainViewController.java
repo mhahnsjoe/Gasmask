@@ -1,4 +1,5 @@
 package application;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -6,7 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -18,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 public class MainViewController implements Initializable {
 	
 	
@@ -138,8 +144,25 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void newCard(ActionEvent event) {
+	    	 try {
+	 		    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewKeyView.fxml"));
+	 		    Parent root = (Parent) loader.load();
+	 		    NewKeyController nController = loader.getController();
 
-	    }
+
+	 		    nController.setEmployeeReg(this.employeeReg);
+	 		    nController.setKeyReg(this.keyReg);
+
+	 		    Scene newKeyViewScene = new Scene(root);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(newKeyViewScene);
+	 		    
+	 		    }
+	 		    catch (IOException e) {
+	 		    	e.printStackTrace();
+	 		    }
+	 	}
+	    
 
 	    @FXML
 	    void selectKey(MouseEvent event) {
@@ -149,7 +172,7 @@ public class MainViewController implements Initializable {
 				txtDisplayCardID.setText(selectedKey.getKeyID());
 				dateDisplayExpire.setValue(selectedKey.getValidTo());
 				txtDisplayName.setText(selectedKey.getHolder());
-				textboxNote.setText(selectedKey.getEmployee().getComment());
+				textboxNote.setText(selectedKey.getComment());
 				btnEditNote.setDisable(false);
 				btnEditCard.setDisable(false);
 				btnDeleteCard.setDisable(false);
@@ -176,7 +199,7 @@ public class MainViewController implements Initializable {
 			
 
 			if ((keyReg.getKeyList().isEmpty())) {
-			observableKeyList.add( new Key(null, null, "test", null, null, null, null));
+			observableKeyList.add( new Key("test", "test", "test", null, null, null, null));
 			}
 			tableKeys.setItems(observableKeyList);
 		}
