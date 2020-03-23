@@ -17,13 +17,13 @@ public class Key {
 	private ArrayList<Lock> specAccess = new ArrayList<Lock>();
 	private ArrayList<AccessLevel> AccessLevels = new ArrayList<AccessLevel>();
 
-	private String specialAccess=(specAccess.size()+" Rooms");
+	private String specialAccess;
 	
 
 	
 	// Constructor-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	public Key(String aLvl, String inst, String kID, String employeeID, LocalDate validTo, ArrayList<Lock> specAccess, ArrayList<AccessLevel> accessLevels) {
+	public Key(String aLvl, String inst, String kID, String employeeID, LocalDate validTo, ArrayList<Lock> specAccess, ArrayList<AccessLevel> accessLevels, String comment, String holder) {
 		setAccessLevel(aLvl);
 		setInstitution(inst);
 		setKeyID(kID);
@@ -31,6 +31,8 @@ public class Key {
 		setValidTo(validTo);
 		setSpecAccess(specAccess);
 		setAccessLevels(AccessLevels);
+		setComment(comment);
+		setHolder(holder);
 	}
 	
 	
@@ -60,8 +62,8 @@ public class Key {
 	public String getSpecialAccess() {
 		return specialAccess;
 	}
-	public void setSpecialAccess(String specialAccess) {
-		this.specialAccess = (specAccess.size()+" Rooms");
+	public void setSpecialAccess(Integer access) {
+		this.specialAccess = access +" Rooms";
 	}
 	
 	public String getAccessLevel() {

@@ -20,18 +20,18 @@
          <children>
             <TableView fx:id="tableKeys" layoutX="39.0" layoutY="90.0" onMouseClicked="#selectKey" prefHeight="337.0" prefWidth="499.0">
               <columns>
-                <TableColumn fx:id="columnKey" prefWidth="53.333340644836426" text="Card ID" />
-                  <TableColumn fx:id="columnHolder" prefWidth="156.00003814697266" text="Card holder:" />
-                <TableColumn fx:id="columnAccess" prefWidth="102.66661071777344" text="Access level" />
-                  <TableColumn fx:id="columnSpecial" minWidth="5.3333740234375" prefWidth="90.6666259765625" text="Special Access" />
-                  <TableColumn fx:id="columnInst" prefWidth="93.99998982747394" text="Institution" />
+                <TableColumn fx:id="columnKey" editable="false" prefWidth="72.0" text="Card ID" />
+                  <TableColumn fx:id="columnHolder" editable="false" prefWidth="112.0" text="Card holder:" />
+                <TableColumn fx:id="columnAccess" editable="false" prefWidth="132.0" text="Access level" />
+                  <TableColumn fx:id="columnSpecial" editable="false" minWidth="5.3333740234375" prefWidth="97.0" text="Special Access" />
+                  <TableColumn fx:id="columnInst" editable="false" prefWidth="86.0" text="Institution" />
               </columns>
             </TableView>
             <Button fx:id="btnEditCard" disable="true" layoutX="589.0" layoutY="441.0" mnemonicParsing="false" onAction="#editCard" prefHeight="25.0" prefWidth="149.0" text="Edit Card" />
             <Button fx:id="btnDeleteCard" disable="true" layoutX="39.0" layoutY="441.0" mnemonicParsing="false" onAction="#deleteConfirmDialogue" prefHeight="25.0" prefWidth="149.0" text="Delete Card" textFill="RED" />
             <Button fx:id="btnNewCard" layoutX="388.0" layoutY="441.0" mnemonicParsing="false" onAction="#newCard" prefHeight="25.0" prefWidth="149.0" text="New Card" />
             <TextField fx:id="txtDisplayName" disable="true" layoutX="589.0" layoutY="246.0" prefHeight="25.0" prefWidth="149.0" promptText="Firstname Lastname" />
-            <TextArea fx:id="textboxNote" disable="true" layoutX="589.0" layoutY="292.0" prefHeight="83.0" prefWidth="149.0" promptText="Note" />
+            <TextArea fx:id="textboxNote" disable="true" layoutX="589.0" layoutY="292.0" prefHeight="83.0" prefWidth="149.0" promptText="Note" wrapText="true" />
             <DatePicker fx:id="dateDisplayExpire" disable="true" layoutX="587.0" layoutY="208.0" prefHeight="25.0" prefWidth="150.0" promptText="YYYY-MM-DD" />
             <TextField fx:id="txtDisplayCardID" alignment="CENTER" disable="true" layoutX="587.0" layoutY="144.0" promptText="Card ID" />
             <Label fx:id="lblAccess" layoutX="624.0" layoutY="190.0" text="Access Expires:" />
@@ -49,7 +49,7 @@
             </RadioButton>
             <ImageView fx:id="logoImage" fitHeight="61.0" fitWidth="157.0" layoutX="39.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Logo.png" />
+                  <Image url="@../Logo.png" />
                </image>
                <effect>
                   <DropShadow />

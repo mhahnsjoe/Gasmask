@@ -25,17 +25,24 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
-
 
 public class NewKeyController implements Initializable {
 
-	
 	private Key selectedKey;
 	private KeyRegister keyReg;
 	private EmployeeRegister employeeReg;
-	
+	private LockRegister lockReg;
+
+	public LockRegister getLockReg() {
+		return lockReg;
+	}
+
+	public void setLockReg(LockRegister lockReg) {
+		this.lockReg = lockReg;
+	}
+
 	public Key getSelectedKey() {
 		return selectedKey;
 	}
@@ -59,135 +66,286 @@ public class NewKeyController implements Initializable {
 	public void setEmployeeReg(EmployeeRegister employeeReg) {
 		this.employeeReg = employeeReg;
 	}
-	
-	// ---------------------------------------------------------- FXML ------------------------------------------
-    @FXML
-    private TextField txtName;
 
-    @FXML
-    private TextArea txtNote;
+	// ---------------------------------------------------------- FXML	 ------------------------------------------
 
-    @FXML
-    private DatePicker dateExpire;
+	@FXML
+	private TextField txtName;
 
-    @FXML
-    private TextField txtCardID;
+	@FXML
+	private TextArea txtNote;
 
-    @FXML
-    private Label lblAccess;
+	@FXML
+	private DatePicker dateExpire;
 
-    @FXML
-    private Button btnEditAccess;
+	@FXML
+	private TextField txtCardID;
 
-    @FXML
-    private ImageView logoImage;
+	@FXML
+	private Label lblAccess;
 
-    @FXML
-    private ComboBox<String> comboInstitution;
-    private ObservableList<String> observableInstitutionList = FXCollections.observableArrayList("Informatik", "Handelsrätt");
+	@FXML
+	private Button btnEditAccess;
 
-    @FXML
-    private TextField txtPnr;
+	@FXML
+	private ImageView logoImage;
 
-    @FXML
-    private ListView<AccessLevel> listAlevels;
-    private ObservableList<AccessLevel> observableAlevels = FXCollections.observableArrayList();
-    
-    @FXML
-    private TableView<Lock> tableRooms;
+	@FXML
+	private ComboBox<String> comboInstitution;
+	private ObservableList<String> observableInstitutionList = FXCollections.observableArrayList("Informatik",
+			"Handelsrätt");
+
+	@FXML
+	private TextField txtPnr;
+
+	@FXML
+	private ListView<String> listAvailableAlevels;
+	private ObservableList<String> observableAlevelsList = FXCollections.observableArrayList();
+
+	@FXML
+	private TableView<Lock> tableRooms;
 	private ObservableList<Lock> observableRoomList = FXCollections.observableArrayList();
 
-    @FXML
-    private TableColumn<Lock, String> columnRoomID;
+	@FXML
+	private TableColumn<Lock, String> columnRoomID;
 
-    @FXML
-    private TableColumn<Lock, String> columnRoomType;
+	@FXML
+	private TableColumn<Lock, String> columnRoomType;
 
-    @FXML
-    private ListView<Lock> listSpecAccess;
+	@FXML
+	private TableView<Lock> tableKeyAccess;
+	private ObservableList<Lock> observableAccessList = FXCollections.observableArrayList();
 
-    @FXML
-    private Button btnLeft;
+	@FXML
+	private TableColumn<Lock, String> columnRoomID1;
+	@FXML
+	private TableColumn<Lock, String> columnRoomType1;
 
-    @FXML
-    private Button btnRight;
+	@FXML
+	private Button btnLeft;
 
-    @FXML
-    private Button btnSaveKey;
+	@FXML
+	private Button btnRight;
 
-    // ----------------------------------------------------------------------- Buttons ----------------------------------------------------------
-    
-    @FXML
-    void editAccess(ActionEvent event) {
+	@FXML
+	private Button btnLeftUpper;
 
-    }
+	@FXML
+	private Button btnRightUpper;
 
-    @FXML
-    void moveLeft(ActionEvent event) {
+	@FXML
+	private Button btnSaveKey;
 
-    }
+	@FXML
+	private ListView<String> listOwnedAlevels;
+	private ObservableList<String> observableOwnedAlevels = FXCollections.observableArrayList();
 
-    @FXML
-    void moveRight(ActionEvent event) {
+	@FXML
+	void selectAvailableAccess(MouseEvent event) {
+		Lock selectedAccess = tableRooms.getSelectionModel().getSelectedItem();
+		if (selectedAccess != null) {
+			btnLeft.setDisable(false);
+			btnRight.setDisable(true);
+			
+		}
 
-    }
+	}
 
-    @FXML
-    void saveKey(ActionEvent event) {
-    	
-			String accessgroups = "";
-			ArrayList<Lock> tspecAccess = new ArrayList<Lock>();
-			ArrayList<AccessLevel> tAccessLevels = new ArrayList<AccessLevel>();
-    		
-    		for (Lock l : listSpecAccess.getItems()) {
-    			tspecAccess.add(l);
-    		}
-    		
-    		for (AccessLevel a : listAlevels.getItems()) {
-    			tAccessLevels.add(a);
-    		}
-    		for (AccessLevel a : tAccessLevels) {
-    			accessgroups = accessgroups+","+a;
-    		}
-    		
-    		
-    		
-    		if (!txtCardID.isDisable()) {
-    		this.selectedKey = new Key(accessgroups, comboInstitution.getSelectionModel().getSelectedItem(), txtCardID.getText(), txtPnr.getText(), dateExpire.getValue(), tspecAccess, tAccessLevels);
-    		keyReg.addKey(selectedKey);
-    	}
-    		 try {
-    			    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
-    			    Parent root = (Parent) loader.load();
-    			    MainViewController hController = loader.getController();
+	@FXML
+	void selectAvailableLevel(MouseEvent event) {
+		try {
+			String selectedLevel = listAvailableAlevels.getSelectionModel().getSelectedItem();
+			if (selectedLevel != null) {
+				btnLeftUpper.setDisable(false);
+				btnRightUpper.setDisable(true);
 
-    			    
+			}
+		} catch (NullPointerException e) {
 
-    			    hController.setEmployeeReg(this.employeeReg);
-    			    hController.setKeyReg(this.keyReg);
-    			    hController.setSelectedKey(this.selectedKey);
+		}
+	}
 
-    			    Scene mainViewScene = new Scene(root);
-    				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    				window.setScene(mainViewScene);
-    			    
-    			    }
-    			    catch (IOException e) {
-    			    	e.printStackTrace();
-    			    }
-    	
-    	
-    
-    	
-    }
+	@FXML
+	void selectOwnedAccess(MouseEvent event) {
+		Lock selectedAccess = tableKeyAccess.getSelectionModel().getSelectedItem();
+		if (selectedAccess != null) {
+			btnLeft.setDisable(true);
+			btnRight.setDisable(false);
+		}
+	}
+
+	@FXML
+	void selectOwnedLevel(MouseEvent event) {
+		try {
+			String selectedLevel = listOwnedAlevels.getSelectionModel().getSelectedItem();
+			if (selectedLevel != null) {
+				btnLeftUpper.setDisable(true);
+				btnRightUpper.setDisable(false);
+			}
+		} catch (NullPointerException e) {
+
+		}
+	}
+
+	@FXML
+	void editAccess(ActionEvent event) {
+
+	}
+
+	@FXML
+	void moveLeft(ActionEvent event) {
+	Lock move = tableRooms.getSelectionModel().getSelectedItem();
+	observableRoomList.remove(move);
+	observableAccessList.add(move);
+	tableRooms.setItems(observableRoomList);
+	tableKeyAccess.setItems(observableAccessList);
+	if (observableRoomList.isEmpty()) {
+		btnLeft.setDisable(true);
+	}
+	
+	}
+
+	@FXML
+	void moveRight(ActionEvent event) {
+		Lock move = tableKeyAccess.getSelectionModel().getSelectedItem();
+		observableRoomList.add(move);
+		observableAccessList.remove(move);
+		tableRooms.setItems(observableRoomList);
+		tableKeyAccess.setItems(observableAccessList);
+		if (observableAccessList.isEmpty()) {
+			btnRight.setDisable(true);
+		}
+		
+	}
+
+	@FXML
+	void moveLeftUpper(ActionEvent event) {
+		String move = listAvailableAlevels.getSelectionModel().getSelectedItem();
+		observableAlevelsList.remove(move);
+		observableOwnedAlevels.add(move);
+		listAvailableAlevels.setItems(observableAlevelsList);
+		listOwnedAlevels.setItems(observableOwnedAlevels);
+		if (observableAlevelsList.isEmpty()) {
+			btnLeftUpper.setDisable(true);
+		}
+	}
+
+	@FXML
+	void moveRightUpper(ActionEvent event) {
+		String move = listOwnedAlevels.getSelectionModel().getSelectedItem();
+		observableOwnedAlevels.remove(move);
+		observableAlevelsList.add(move);
+		listAvailableAlevels.setItems(observableAlevelsList);
+		listOwnedAlevels.setItems(observableOwnedAlevels);
+		if (observableOwnedAlevels.isEmpty()) {
+			btnRightUpper.setDisable(true);
+		}
+	}
+	// -----------------------------------------------------------------------
+	// Buttons ----------------------------------------------------------
+
+	@FXML
+	void saveKey(ActionEvent event) {
+
+		ArrayList<Lock> tspecAccess = new ArrayList<Lock>();
+		ArrayList<AccessLevel> tAccessLevels = new ArrayList<AccessLevel>();
+		String accessgroups="";
+
+		for (Lock l : observableAccessList) {
+			tspecAccess.add(l);
+		}
+
+		for (String a : observableOwnedAlevels) {
+			tAccessLevels.add(lockReg.getAccessLevels().get(a));
+		}
+		
+		
+		
+		if (tAccessLevels.size() > 4) {
+			accessgroups = "*";
+		}
+		else if (tAccessLevels.size() == 1) {
+			accessgroups = tAccessLevels.get(0).getName();
+		}
+		else {
+		for (AccessLevel a : tAccessLevels) {
+			if(accessgroups.isEmpty()) {
+				accessgroups = a.getName();
+			}
+			else {
+			accessgroups += ", " + a.getName()  ;
+		}
+		}
+		
+		}
+		
+
+		if (!txtCardID.isDisable()) {
+			this.selectedKey = new Key(accessgroups, comboInstitution.getSelectionModel().getSelectedItem(),
+					txtCardID.getText(), txtPnr.getText(), dateExpire.getValue(), tspecAccess, tAccessLevels,
+					txtNote.getText(), txtName.getText());
+			selectedKey.setSpecialAccess(tspecAccess.size());
+			keyReg.addKey(selectedKey);
+		}
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
+			Parent root = (Parent) loader.load();
+			MainViewController hController = loader.getController();
+
+			hController.setEmployeeReg(this.employeeReg);
+			hController.setKeyReg(this.keyReg);
+			hController.setSelectedKey(this.selectedKey);
+			hController.setLockReg(this.lockReg);
+			hController.setObservableKeyList();
+
+			Scene mainViewScene = new Scene(root);
+			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			window.setScene(mainViewScene);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void loadRegisters() {
+		for (Lock l : lockReg.getLockList().values()) {
+			observableRoomList.add(l);
+		}
+		try {
+		for (Lock l : this.selectedKey.getSpecAccess()) {
+			observableRoomList.remove(l);
+		}
+		}
+		catch (NullPointerException e) {
+			
+		}
+		tableRooms.setItems(observableRoomList);
+
+		for (String level : lockReg.getAccessLevels().keySet()) {
+			observableAlevelsList.add(level);
+		}
+		try {
+			for (AccessLevel level : this.selectedKey.getAccessLevels()) {
+				observableAlevelsList.remove(level.getName());
+			}
+		}
+		catch (NullPointerException e) {
+			
+		}
+		listAvailableAlevels.setItems(observableAlevelsList);
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-	comboInstitution.setItems(observableInstitutionList);
-	columnRoomID.setCellValueFactory(new PropertyValueFactory<Lock, String>("roomNr"));
-	columnRoomType.setCellValueFactory(new PropertyValueFactory<Lock, String>("type"));
-	
+
+		comboInstitution.setItems(observableInstitutionList);
+		columnRoomID.setCellValueFactory(new PropertyValueFactory<Lock, String>("roomNr"));
+		columnRoomType.setCellValueFactory(new PropertyValueFactory<Lock, String>("type"));
+		columnRoomID1.setCellValueFactory(new PropertyValueFactory<Lock, String>("roomNr"));
+		columnRoomType1.setCellValueFactory(new PropertyValueFactory<Lock, String>("type"));
+
 	}
 
 }

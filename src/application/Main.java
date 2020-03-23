@@ -11,9 +11,11 @@ import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	
-	private Key selectedKey;
+
 	private KeyRegister keyReg = new KeyRegister();
 	private EmployeeRegister employeeReg = new EmployeeRegister();
+	private LockRegister lockReg = new LockRegister();
+	private Test testvalues = new Test();
 	
 	public void start(Stage primaryStage) {
 		
@@ -21,10 +23,14 @@ public class Main extends Application {
 		    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
 		    Parent root = (Parent) loader.load();
 		    MainViewController hController = loader.getController();
-
-
-		    hController.setEmployeeReg(this.employeeReg);
-		    hController.setKeyReg(this.keyReg);
+		    
+		    testvalues.addTestValues();
+		    
+		    hController.setEmployeeReg(testvalues.getEmployeeReg());
+		    hController.setKeyReg(testvalues.getKeyReg());
+		    hController.setLockReg(testvalues.getLockReg());
+		    hController.setObservableKeyList();
+		 
 
 		    Stage stage = new Stage();
 		    stage.setScene(new Scene(root));

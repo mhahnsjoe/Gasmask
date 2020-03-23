@@ -32,8 +32,17 @@ public class MainViewController implements Initializable {
 	private Key selectedKey;
 	private KeyRegister keyReg;
 	private EmployeeRegister employeeReg;
+	private LockRegister lockReg;
 	
 	
+	public LockRegister getLockReg() {
+		return lockReg;
+	}
+
+	public void setLockReg(LockRegister lockReg) {
+		this.lockReg = lockReg;
+	}
+
 	public Key getSelectedKey() {
 		return selectedKey;
 	}
@@ -139,7 +148,15 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void editNote(ActionEvent event) {
-
+	    	if (btnEditNote.getText().equals("Save Note")) {
+	    	selectedKey.setComment(textboxNote.getText());
+	    	btnEditNote.setText("Edit Note");
+	    	textboxNote.setDisable(true);
+	    	}
+	    	else {
+	    	textboxNote.setDisable(false);
+	    	btnEditNote.setText("Save Note");
+	    	}
 	    }
 
 	    @FXML
@@ -152,6 +169,10 @@ public class MainViewController implements Initializable {
 
 	 		    nController.setEmployeeReg(this.employeeReg);
 	 		    nController.setKeyReg(this.keyReg);
+	 		    nController.setSelectedKey(this.selectedKey);
+	 		    nController.setLockReg(this.lockReg);
+	 		    nController.loadRegisters();
+	 		    
 
 	 		    Scene newKeyViewScene = new Scene(root);
 				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -191,7 +212,7 @@ public class MainViewController implements Initializable {
 	    }
 
 	 // Populates tableKeys with keys from keyReg
-		public void setObservableStudentList() {
+		public void setObservableKeyList() {
 			observableKeyList.clear();
 			for (Key k : keyReg.getKeyList().values()) {
 				observableKeyList.add(k);
@@ -199,7 +220,7 @@ public class MainViewController implements Initializable {
 			
 
 			if ((keyReg.getKeyList().isEmpty())) {
-			observableKeyList.add( new Key("test", "test", "test", null, null, null, null));
+			observableKeyList.add( new Key("test", "test", "test", null, null, null, null, "test", "tester"));
 			}
 			tableKeys.setItems(observableKeyList);
 		}
@@ -211,7 +232,7 @@ public class MainViewController implements Initializable {
 			columnKey.setCellValueFactory(new PropertyValueFactory<Key, String>("keyID"));
 			columnHolder.setCellValueFactory(new PropertyValueFactory<Key, String>("holder"));
 			columnAccess.setCellValueFactory(new PropertyValueFactory<Key, String>("accessLevel"));
-			columnSpecial.setCellValueFactory(new PropertyValueFactory<Key, String>("holder"));
+			columnSpecial.setCellValueFactory(new PropertyValueFactory<Key, String>("specialAccess"));
 			columnInst.setCellValueFactory(new PropertyValueFactory<Key, String>("institution"));
 		}
 

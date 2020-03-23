@@ -8,7 +8,18 @@ public class LockRegister {
 	// Attributes 
 	private HashMap<String, Lock> lockList = new HashMap<String, Lock>();
 		
+	private HashMap<String, AccessLevel> AccessLevels = new HashMap<String, AccessLevel>();
 	// Getters and setters 
+
+	public HashMap<String, AccessLevel> getAccessLevels() {
+		return AccessLevels;
+	}
+
+
+	public void setAccessLevels(HashMap<String, AccessLevel> accessLevels) {
+		AccessLevels = accessLevels;
+	}
+
 
 	public HashMap<String, Lock> getLockList() {
 			return lockList;
@@ -22,7 +33,7 @@ public class LockRegister {
 	
 		
 	public void addLock(Lock lock) {
-		this.getLockList().put(lock.getLockID(), lock);
+		this.getLockList().put(lock.getRoomNr(), lock);
 	}
 	
 	public Lock findLock(String lockID) {
@@ -34,25 +45,7 @@ public class LockRegister {
 	}
 
 
-	// Returns a generated and validated student Id
-		public String generateLockID() {
-			Boolean duplicate = true;
-			String lockID = "";
-			while (duplicate == true) {
-				
-				Random random = new Random();
 
-				int randInt = random.nextInt(99999);
-				while (randInt <= 9999) {
-					randInt = random.nextInt(99999);
-				}
-				
-				if (findLock(lockID) == null) {
-					duplicate = false;
-				}
-			}
-			return lockID;
-		}
 	}
 	
 
