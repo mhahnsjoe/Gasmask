@@ -30,7 +30,7 @@ public class Key {
 		setEmployeeID(employeeID);
 		setValidTo(validTo);
 		setSpecAccess(specAccess);
-		setAccessLevels(AccessLevels);
+		setAccessLevels(accessLevels);
 		setComment(comment);
 		setHolder(holder);
 	}

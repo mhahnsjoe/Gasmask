@@ -143,8 +143,30 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void editCard(ActionEvent event) {
+	    	try {
+	 		    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewKeyView.fxml"));
+	 		    Parent root = (Parent) loader.load();
+	 		    NewKeyController nController = loader.getController();
 
-	    }
+
+	 		    nController.setEmployeeReg(this.employeeReg);
+	 		    nController.setKeyReg(this.keyReg);
+	 		    nController.setSelectedKey(this.selectedKey);
+	 		    nController.setLockReg(this.lockReg);
+	 		    nController.loadRegisters();
+	 		    nController.editKey();
+	 		    
+
+	 		    Scene newKeyViewScene = new Scene(root);
+				Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				window.setScene(newKeyViewScene);
+	 		    
+	 		    }
+	 		    catch (IOException e) {
+	 		    	e.printStackTrace();
+	 		    }
+	 	}
+	    
 
 	    @FXML
 	    void editNote(ActionEvent event) {
@@ -161,6 +183,7 @@ public class MainViewController implements Initializable {
 
 	    @FXML
 	    void newCard(ActionEvent event) {
+	    	selectedKey = new Key(null, null, null, null, null, null, null, null, null);
 	    	 try {
 	 		    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("NewKeyView.fxml"));
 	 		    Parent root = (Parent) loader.load();

@@ -258,6 +258,7 @@ public class NewKeyController implements Initializable {
 		for (String a : observableOwnedAlevels) {
 			tAccessLevels.add(lockReg.getAccessLevels().get(a));
 		}
+		System.out.println(tAccessLevels);
 		
 		
 		
@@ -287,6 +288,18 @@ public class NewKeyController implements Initializable {
 			selectedKey.setSpecialAccess(tspecAccess.size());
 			keyReg.addKey(selectedKey);
 		}
+		else {
+			keyReg.removeKey(selectedKey.getKeyID());
+			this.selectedKey = new Key(accessgroups, comboInstitution.getSelectionModel().getSelectedItem(),
+					txtCardID.getText(), txtPnr.getText(), dateExpire.getValue(), tspecAccess, tAccessLevels,
+					txtNote.getText(), txtName.getText());
+			selectedKey.setSpecialAccess(tspecAccess.size());
+			keyReg.addKey(selectedKey);
+			btnSaveKey.setText("Save Keycard");
+			txtCardID.setDisable(false);
+			
+		}
+
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("MainView.fxml"));
 			Parent root = (Parent) loader.load();
@@ -309,31 +322,51 @@ public class NewKeyController implements Initializable {
 	}
 
 	public void loadRegisters() {
+		String checkNew = selectedKey.getKeyID();
+		observableRoomList.clear();
+		observableAccessList.clear();
+		observableAlevelsList.clear();
+		observableOwnedAlevels.clear();
+	
 		for (Lock l : lockReg.getLockList().values()) {
 			observableRoomList.add(l);
 		}
-		try {
+		if (checkNew != null) {
 		for (Lock l : this.selectedKey.getSpecAccess()) {
 			observableRoomList.remove(l);
+			observableAccessList.add(l);
 		}
-		}
-		catch (NullPointerException e) {
-			
 		}
 		tableRooms.setItems(observableRoomList);
+		tableKeyAccess.setItems(observableAccessList);
 
-		for (String level : lockReg.getAccessLevels().keySet()) {
-			observableAlevelsList.add(level);
+		if (checkNew != null) {
+		for (AccessLevel level : this.selectedKey.getAccessLevels()) {
+			observableOwnedAlevels.add(level.getName());
 		}
-		try {
-			for (AccessLevel level : this.selectedKey.getAccessLevels()) {
-				observableAlevelsList.remove(level.getName());
+		}
+		
+		for (AccessLevel level : lockReg.getAccessLevels().values()) {
+			if(!observableOwnedAlevels.contains(level.getName())) {
+			observableAlevelsList.add(level.getName());
 			}
 		}
-		catch (NullPointerException e) {
-			
-		}
+		
+		
 		listAvailableAlevels.setItems(observableAlevelsList);
+		listOwnedAlevels.setItems(observableOwnedAlevels);
+	}
+	
+	public void editKey() {
+		Key selected = getSelectedKey();
+		txtPnr.setText(selected.getEmployeeID());
+		txtCardID.setDisable(true);
+		txtCardID.setText(selected.getKeyID());
+		dateExpire.setValue(selected.getValidTo());
+		comboInstitution.getSelectionModel().select(selected.getInstitution());
+		txtName.setText(selected.getHolder());		
+		txtNote.setText(selected.getComment());
+		btnSaveKey.setText("Update Keycard");
 	}
 
 	@Override

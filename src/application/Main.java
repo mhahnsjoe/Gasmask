@@ -16,6 +16,7 @@ public class Main extends Application {
 	private EmployeeRegister employeeReg = new EmployeeRegister();
 	private LockRegister lockReg = new LockRegister();
 	private Test testvalues = new Test();
+	private Key selectedKey = new Key(null, null, null, null, null, null, null, null, null);
 	
 	public void start(Stage primaryStage) {
 		
@@ -30,6 +31,7 @@ public class Main extends Application {
 		    hController.setKeyReg(testvalues.getKeyReg());
 		    hController.setLockReg(testvalues.getLockReg());
 		    hController.setObservableKeyList();
+		    hController.setSelectedKey(selectedKey);
 		 
 
 		    Stage stage = new Stage();
